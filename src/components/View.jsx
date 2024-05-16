@@ -2,6 +2,11 @@ import { useState } from 'react';
 // import ViewData from './ViewData';
 import { useContext } from 'react';
 import { MyContext } from '../MyContext';
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
 
 function View() {
   const [firstName, setFirstName] = useState('');
@@ -10,20 +15,6 @@ function View() {
   const [email, setEmail] = useState('');
   const [weight, setWeight] = useState('');
   const { items, setItems } = useContext(MyContext);
-
-  const valueChange = (e) => {
-    if (e.target.name === 'firstName') {
-      setFirstName(e.target.value);
-    } else if (e.target.name === 'lastName') {
-      setLastName(e.target.value);
-    } else if (e.target.name === 'age') {
-      setAge(e.target.value);
-    } else if (e.target.name === 'email') {
-      setEmail(e.target.value);
-    } else if (e.target.name === 'weight') {
-      setWeight(e.target.value);
-    }
-  };
 
   const formSubmit = (e) => {
     e.preventDefault();
@@ -41,47 +32,102 @@ function View() {
     ]);
   };
 
+  const resetAll = (e) => {
+    setFirstName('');
+    setLastName('');
+    setAge('');
+    setEmail('');
+    setWeight('');
+  };
+
   return (
     <div>
       <form onSubmit={formSubmit}>
-        First Name:{' '}
-        <input
-          type="text"
-          name="firstName"
-          value={firstName}
-          onChange={valueChange}
-        />
-        <br />
-        <br />
-        Last Name:{' '}
-        <input
-          type="text"
-          name="lastName"
-          value={lastName}
-          onChange={valueChange}
-        />
-        <br />
-        <br />
-        Age:{' '}
-        <input type="number" name="age" value={age} onChange={valueChange} />
-        <br />
-        <br />
-        Email:{' '}
-        <input type="email" name="email" value={email} onChange={valueChange} />
-        <br />
-        <br />
-        Weight:{' '}
-        <input
-          type="number"
-          name="weight"
-          value={weight}
-          onChange={valueChange}
-        />
-        <br />
-        <br />
-        <button type="Submit" name="Submit" value="Submit">
-          Submit
-        </button>
+        <Box
+          // component="form"
+          sx={{
+            '& > :not(style)': { m: 1, width: '25ch' },
+          }}
+          autoComplete="off"
+          onSubmit={formSubmit}
+        >
+          <br />
+
+          <TextField
+            id="standard-basic"
+            variant="standard"
+            type="text"
+            label="First Name"
+            name="firstName"
+            value={firstName}
+            onChange={(event) => {
+              setFirstName(event.target.value);
+            }}
+          />
+          <br />
+
+          <TextField
+            id="standard-basic"
+            variant="standard"
+            type="text"
+            label="Last Name"
+            name="lastName"
+            value={lastName}
+            onChange={(event) => {
+              setLastName(event.target.value);
+            }}
+          />
+          <br />
+
+          <TextField
+            id="standard-basic"
+            variant="standard"
+            type="number"
+            label="Age"
+            name="age"
+            value={age}
+            onChange={(event) => {
+              setAge(event.target.value);
+            }}
+          />
+          <br />
+
+          <TextField
+            id="standard-basic"
+            variant="standard"
+            type="email"
+            label="Email"
+            name="email"
+            value={email}
+            onChange={(event) => {
+              setEmail(event.target.value);
+            }}
+          />
+          <br />
+
+          <TextField
+            id="standard-basic"
+            variant="standard"
+            type="number"
+            label="Weight"
+            name="weight"
+            value={weight}
+            onChange={(event) => {
+              setWeight(event.target.value);
+            }}
+          />
+          <br />
+          <br />
+
+          <Stack spacing={2} direction="row">
+            <Button variant="outlined" type="submit">
+              Submit
+            </Button>
+            <Button variant="outlined" type="reset" onClick={resetAll}>
+              Reset
+            </Button>
+          </Stack>
+        </Box>
         <br />
         <br />
       </form>
